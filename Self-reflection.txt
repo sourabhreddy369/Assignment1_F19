@@ -1,0 +1,5 @@
+ 
+•Learned C# language, its syntax, visual studio environment, pushing code to GitHub directly from IDE.
+•Some of the problems in the assignment are like a quick revision of the problem-solving skills and coding practices.
+•The LongestCommonSubArray and SolvePuzzle are the most interesting problems and would like to take some more problems of this kind to implement the problem-solving approach into coding.
+
