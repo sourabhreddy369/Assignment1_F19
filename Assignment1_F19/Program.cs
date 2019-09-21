@@ -244,6 +244,7 @@ namespace Assignment1_F19
             public int value;
             public char letter;
         };
+        static int flag = -1; //Flag variable to check whether the soultioon is found or not
         public static void solvePuzzle()
         {
             try
@@ -292,8 +293,11 @@ namespace Assignment1_F19
                  * for ex: if 0 is assigned to an alphabet then mark used[0] = 1 (marking it as assigned)
                  * */
                 int[] used = new int[10];
-                if(!allPossibilities(LettersAndValues, count, 0, str1, str2, result, used))
-                    Console.WriteLine("No possible combination of numbers can be assigned to entered alphabets");
+                Console.WriteLine("Possible Assignment of numbers to alphabets in entered Strings are: ");
+                allPossibilities(LettersAndValues, count, 0, str1, str2, result, used);
+                if (flag == -1)
+                    Console.WriteLine("\n !!!  SORRY !!!\n  No possible combination of numbers to the alphabets is found, please try with another set of values");
+                
             }
             catch
             {
@@ -303,7 +307,7 @@ namespace Assignment1_F19
         /*
          * This method checks for all the possibilities of assignments of integers 0-9 for all the alphabets (Brute Force)
          * */
-        public static bool allPossibilities(node[] LettersAndValues, int count, int n, String str1, String str2, String result, int[] used)
+        public static void allPossibilities(node[] LettersAndValues, int count, int n, String str1, String str2, String result, int[] used)
         {
             //if the n is the number of alphabets in the entered strings 
             if (n == count - 1)
@@ -316,16 +320,16 @@ namespace Assignment1_F19
                         //For each possibility check whether that combination works or not
                         if (checkCombination(LettersAndValues, count, str1, str2, result))
                         {
-                            Console.WriteLine("Possible Assignment of numbers to alphabets in entered Strings are: ");
+                            flag = 1; //assign flag = 1 to note that solution to puzzle is found
+                            Console.WriteLine("\n");
                             for (int j = 0; j < count; j++)
                                 Console.Write(LettersAndValues[j].letter + " = " + LettersAndValues[j].value + ",  ");
-
-                            return true;
+                            return;
                         }
                     }
                 }
-                //If the combination didn't work then return false
-                return false;
+                //If the combination didn't work then return
+                return;
             }
 
             for (int i = 0; i < 10; i++)
@@ -336,13 +340,12 @@ namespace Assignment1_F19
                     //assigned value of i to an alphabet and marking it as assigned (used[i] = 1)
                     used[i] = 1;
                     //Check for other possibilities for the alphabets
-                    if (allPossibilities(LettersAndValues, count, n + 1, str1, str2, result, used))
-                        return true;
+                    allPossibilities(LettersAndValues, count, n+1, str1, str2, result, used);
                     //if the possibility is not found then unmark the number.
                     used[i] = 0;
                 }
             }
-            return false;
+           return;
         }
         /*
          * This method checks whether the assigned combination works for Str1+Str2 = result or not
