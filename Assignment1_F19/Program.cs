@@ -195,14 +195,15 @@ namespace Assignment1_F19
                     }
                     else
                     {
-                        if (arr1[i] < arr2[j]) i++;
-                        else j++;
-                        //if new length is greater than or equals max length then update the max length
                         if (newLen >= maxLen)
                         {
                             maxLen = newLen;
-                            end = i; //note down the end of longest common sub array
+                            end = i - 1; //note down the end of longest common sub array
                         }
+                        if (arr1[i] < arr2[j]) i++;
+                        else j++;
+                        //if new length is greater than or equals max length then update the max length
+
                         newLen = 0;
                     }
                     //If i or j reaches the length of arrays then check for max length
@@ -211,13 +212,13 @@ namespace Assignment1_F19
                         if (newLen >= maxLen)
                         {
                             maxLen = newLen;
-                            end = i;
+                            end = i - 1;
                         }
                     }
 
                 }
                 int[] result = new int[maxLen]; //create a new array to store the result
-                start = end - maxLen;//note down the start of the longest common sub array
+                start = end - maxLen + 1;//note down the start of the longest common sub array
                 for (j = 0; j < maxLen; j++, start++)
                 {
                     result[j] = arr1[start];//add elements to the result
@@ -297,7 +298,7 @@ namespace Assignment1_F19
                 allPossibilities(LettersAndValues, count, 0, str1, str2, result, used);
                 if (flag == -1)
                     Console.WriteLine("\n !!!  SORRY !!!\n  No possible combination of numbers to the alphabets is found, please try with another set of values");
-                
+
             }
             catch
             {
@@ -340,12 +341,12 @@ namespace Assignment1_F19
                     //assigned value of i to an alphabet and marking it as assigned (used[i] = 1)
                     used[i] = 1;
                     //Check for other possibilities for the alphabets
-                    allPossibilities(LettersAndValues, count, n+1, str1, str2, result, used);
+                    allPossibilities(LettersAndValues, count, n + 1, str1, str2, result, used);
                     //if the possibility is not found then unmark the number.
                     used[i] = 0;
                 }
             }
-           return;
+            return;
         }
         /*
          * This method checks whether the assigned combination works for Str1+Str2 = result or not
